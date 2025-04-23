@@ -1,0 +1,12 @@
+
+services:
+  db:
+    image: postgres:latest
+    container_name: challenge_maxidata
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: maxi
+      POSTGRES_DB: maxidata_db
+    ports:
+      - "5432:5432"
