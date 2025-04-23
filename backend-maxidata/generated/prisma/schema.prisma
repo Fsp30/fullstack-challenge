@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TypeProfessional {
+  id            Int            @id @default(autoincrement())
+  describe      String
+  situation     Boolean
+  updatedAt     DateTime       @updatedAt
+  createdAt     DateTime       @default(now())
+  professionals Professional[]
+}
+
+model Professional {
+  id                 Int              @id @default(autoincrement())
+  nome               String
+  telephone          String?
+  email              String?
+  situation          Boolean
+  typeProfessionalId Int
+  typeProfessional   TypeProfessional @relation(fields: [typeProfessionalId], references: [id])
+  updatedAt          DateTime         @updatedAt
+  createdAt          DateTime         @default(now())
+}
