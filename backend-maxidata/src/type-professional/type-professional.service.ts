@@ -21,7 +21,7 @@ export class TypeProfessionalService {
   }
 
   findAll() {
-    return `This action returns all typeProfessional`;
+    return this.prisma.typeProfessional.findMany()
   }
 
   findOne(id: number) {
