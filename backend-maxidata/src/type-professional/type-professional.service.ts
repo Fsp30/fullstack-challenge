@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer'
+import { validateOrReject } from 'class-validator'
 import { CreateTypeProfessionalDto } from './dto/create-type-professional.dto';
 import { UpdateTypeProfessionalDto } from './dto/update-type-professional.dto';
 import { PrismaClient } from '@generated/prisma'
@@ -8,10 +10,14 @@ export class TypeProfessionalService {
 
   constructor(private prisma: PrismaClient){}
 
-  async create(data: {describe: string, situation: boolean}) {
-    return this.prisma.typeProfessional.create({
-      data
+  async create(input: CreateTypeProfessionalDto){
+    const dto = plainToInstance(CreateTypeProfessionalDto, input)
+
+    await validateOrReject(dto,{
+      whitelist: true,
+      forbidNonWhitelisted: true
     })
+    return this.prisma.typeProfessional.create({data:dto})
   }
 
   findAll() {
