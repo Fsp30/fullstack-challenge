@@ -34,4 +34,10 @@ describe('TypeProfessionalService', () => {
       updatedAt: expect.any(Date)
     })
   })
+  it('should throw an error if describe is missing', async () => {
+        const data = {
+          situation: true
+        }
+        await expect(service.create(data as any)).rejects.toThrow()
+  })
 })
