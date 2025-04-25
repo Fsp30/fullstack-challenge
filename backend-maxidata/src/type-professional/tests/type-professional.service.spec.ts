@@ -40,4 +40,17 @@ describe('TypeProfessionalService', () => {
         }
         await expect(service.create(data as any)).rejects.toThrow()
   })
+
+  it('should return all type professionals', async ()=>{
+    await service.create({describe: 'Motorista', situation: true})
+    await service.create({describe: 'Carteiro', situation: false})
+    await service.create({describe: 'Zelador', situation: true})
+
+    const result = await service.findAll()
+
+    expect(result.length).toBeGreaterThanOrEqual(2)
+    expect(result.map(r => r.describe)).toEqual(
+      expect.arrayContaining(['Motorista', 'Carteiro', 'Zelador'])
+    )
+  })
 })
