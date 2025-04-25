@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTypeProfessionalDto } from './dto/create-type-professional.dto';
 import { UpdateTypeProfessionalDto } from './dto/update-type-professional.dto';
+import { PrismaClient } from '@generated/prisma'
 
 @Injectable()
 export class TypeProfessionalService {
-  create(createTypeProfessionalDto: CreateTypeProfessionalDto) {
-    return 'This action adds a new typeProfessional';
+
+  constructor(private prisma: PrismaClient){}
+
+  async create(data: {describe: string, situation: boolean}) {
+    return this.prisma.typeProfessional.create({
+      data
+    })
   }
 
   findAll() {
