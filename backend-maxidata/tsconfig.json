@@ -11,7 +11,8 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
-      "@generated/*": ["generated/*"]
+      "@generated/*": ["generated/*"],
+      "@/*": ["src/*"]
     },
     "incremental": true,
     "esModuleInterop": true,
