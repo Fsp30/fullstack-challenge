@@ -3,7 +3,7 @@ import { plainToInstance } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
 import { CreateTypeProfessionalDto } from './dto/create-type-professional.dto';
 import { UpdateTypeProfessionalDto } from './dto/update-type-professional.dto';
-import { PrismaClient } from '@generated/prisma'
+import { PrismaClient, TypeProfessional } from '@generated/prisma'
 
 @Injectable()
 export class TypeProfessionalService {
@@ -20,12 +20,16 @@ export class TypeProfessionalService {
     return this.prisma.typeProfessional.create({data:dto})
   }
 
-  findAll() {
-    return this.prisma.typeProfessional.findMany()
+  async findAll() {
+    return await this.prisma.typeProfessional.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} typeProfessional`;
+  async findOne(id: number): Promise<TypeProfessional> {
+    const typeProfessional = await this.prisma.typeProfessional.findUnique({where: {id}})
+    if(!typeProfessional){
+      throw new Error('Tipo de profissionl não encontrado')
+    }
+    return typeProfessional
   }
 
   update(id: number, updateTypeProfessionalDto: UpdateTypeProfessionalDto) {
