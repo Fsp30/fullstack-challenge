@@ -53,4 +53,21 @@ describe('TypeProfessionalService', () => {
       expect.arrayContaining(['Motorista', 'Carteiro', 'Zelador'])
     )
   })
+  it('return a TypeProfessional by id', async () => {
+    const created = await service.create({
+      describe: 'Psicólogo',
+      situation: true,
+    })
+  
+    const found = await service.findOne(created.id)
+    expect(found).toBeDefined();
+    expect(found.id).toBe(created.id)
+    expect(found.describe).toBe('Psicólogo')
+  });
+  
+  it('should throw error if TypeProfessional is not found', async () => {
+    await expect(service.findOne(99999)).rejects.toThrowError('TypeProfessional não encontrado')
+  });
 })
+
+
