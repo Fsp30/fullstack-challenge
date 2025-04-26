@@ -4,6 +4,7 @@ import { validateOrReject } from 'class-validator'
 import { CreateTypeProfessionalDto } from './dto/create-type-professional.dto';
 import { UpdateTypeProfessionalDto } from './dto/update-type-professional.dto';
 import { PrismaClient, TypeProfessional } from '@generated/prisma'
+import { ResourceNotFoundException } from '@/shared/errors/ResourceNotFoundException';
 
 @Injectable()
 export class TypeProfessionalService {
@@ -27,13 +28,19 @@ export class TypeProfessionalService {
   async findOne(id: number): Promise<TypeProfessional> {
     const typeProfessional = await this.prisma.typeProfessional.findUnique({where: {id}})
     if(!typeProfessional){
-      throw new Error('Tipo de profissionl não encontrado')
+      throw new ResourceNotFoundException("Tipo de Profissional")
     }
     return typeProfessional
   }
 
-  update(id: number, updateTypeProfessionalDto: UpdateTypeProfessionalDto) {
-    return `This action updates a #${id} typeProfessional`;
+  async update(id:number, input:UpdateTypeProfessionalDto){
+    await this.findOne(id)
+    const dto = plainToInstance(UpdateTypeProfessionalDto, input)
+
+    await validateOrReject(dto, {
+      whitelist: true,
+      forbidNonWhitelisted: true
+    })
   }
 
   remove(id: number) {
