@@ -68,6 +68,32 @@ describe('TypeProfessionalService', () => {
   it('should throw error if TypeProfessional is not found', async () => {
     await expect(service.findOne(99999)).rejects.toThrowError('TypeProfessional não encontrado')
   });
+  it('should update an existing TypeProfessional', async () => {
+    const created = await service.create({
+      describe: 'Dentista',
+      situation: true,
+    })
+    const updateData = {
+      describe: 'Dentista atualizado',
+      situation: false,
+    }
+  
+    const updated = await service.update(created.id, updateData)
+    expect(updated).toBeDefined();
+    expect(updated.id).toBe(created.id)
+    expect(updated.describe).toBe(updateData.describe)
+    expect(updated.situation).toBe(updateData.situation)
+    expect(updated.updatedAt).toBeInstanceOf(Date)
+  })
+
+  it('should throw error when updating non-existing TypeProfessional', async () => {
+    const updateData = {
+      describe: 'Não existe',
+      situation: true,
+    }
+    await expect(service.update(99999, updateData)).rejects.toThrowError('Tipo de profissional não encontrado')
+  })
+  
 })
 
 
