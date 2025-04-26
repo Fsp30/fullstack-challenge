@@ -93,6 +93,18 @@ describe('TypeProfessionalService', () => {
     }
     await expect(service.update(99999, updateData)).rejects.toThrowError('Tipo de profissional não encontrado')
   })
+
+  it('Deleted a TypeProfessional by Id', async () =>{
+    const created = await service.create({
+      describe: 'Desenvolvedor',
+      situation: true
+    })
+    const result = await service.remove(created.id)
+    await expect(service.findOne(created.id)).rejects.toThrow('Tipo de profissional não encontrado') 
+  })
+  it('should throw error when removing non-existing TypeProfessional', async () => {
+    await expect(service.remove(99999)).rejects.toThrow('Tipo de profissional não encontrado')
+  })
   
 })
 
