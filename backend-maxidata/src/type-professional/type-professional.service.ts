@@ -21,7 +21,7 @@ export class TypeProfessionalService {
     return this.prisma.typeProfessional.create({ data: dto })
   }
 
-  async findAll() {
+  async findAll():Promise<TypeProfessional[]> {
     return await this.prisma.typeProfessional.findMany()
   }
 
