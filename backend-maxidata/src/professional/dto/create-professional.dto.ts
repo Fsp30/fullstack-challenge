@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, IsString, IsInt, IsOptional, IsBoolean } from "cla
 export class CreateProfessionalDto {
         @IsString()
         @IsNotEmpty()
-        name: string
+        nome: string
 
         @IsOptional()
         @IsString()
