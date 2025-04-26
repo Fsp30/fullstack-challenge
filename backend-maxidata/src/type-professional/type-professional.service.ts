@@ -43,7 +43,8 @@ export class TypeProfessionalService {
     })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} typeProfessional`;
+  async remove(id: number) {
+    await this.findOne(id)
+    return this.prisma.typeProfessional.delete({where: {id}})
   }
 }
