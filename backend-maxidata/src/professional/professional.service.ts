@@ -46,7 +46,7 @@ export class ProfessionalService {
     return professional
   }
 
-  update(id: number, updateProfessionalDto: UpdateProfessionalDto) {
+  update(id: number, updateProfessionalDto: UpdateProfessionalDto):Promise<Professional> {
     return `This action updates a #${id} professional`;
   }
 
