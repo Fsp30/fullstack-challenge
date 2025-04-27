@@ -34,8 +34,8 @@ export class ProfessionalService {
     })
   }
 
-  findAll() {
-    return `This action returns all professional`;
+  async findAll():Promise<Professional[]> {
+    return await this.prisma.professional.findMany()
   }
 
   findOne(id: number) {
