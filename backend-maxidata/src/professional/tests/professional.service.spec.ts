@@ -102,4 +102,27 @@ describe('ProfessionalService', () => {
       expect.arrayContaining(['Clyde Drexler', 'Post Malone'])
     )
   })
+  it('return a professional by id', async () => {
+    const typeProfessional = await prisma.typeProfessional.create({
+      data: { describe: 'Artista', situation: true }
+    })
+
+    const create = await service.create({
+      nome: 'Post Malone',
+      telephone: '32987654321',
+      email: 'Stoney@example.com',
+      situation: true,
+      typeOfProfessionalId: typeProfessional.id
+    })
+
+    const found = await service.findOne(create.id)
+    expect(found).toBeDefined()
+    expect(found.id).toBe(create.id)
+    expect(found.nome).toBe('Post Malone')
+    expect(found.telephone).toBe('32987654321')
+    expect(found.email).toBe('Stoney@example.com')
+  })
+  it('should throw an error if professional is not found', async () => {
+    await expect(service.findOne(99999)).rejects.toThrow('Profissional não encontrado')
+  })
 })
