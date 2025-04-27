@@ -45,30 +45,61 @@ describe('ProfessionalService', () => {
       email: data.email,
       situation: data.situation,
       typeOfProfessionalId: data.typeOfProfessionalId,
-      createAt: expect.any(Date),
-      updateAt: expect.any(Date),
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
     })
   })
-  
+
   it('should throw an error if typeOfProfessionalId does not exist', async () => {
     const data = {
       nome: 'Maria Oliveira',
       telephone: '11888888888',
       email: 'maria@example.com',
       situation: true,
-      typeOfProfessionalId: 99999, 
+      typeOfProfessionalId: 99999,
     }
     await expect(service.create(data)).rejects.toThrowError('Tipo de profissional não encontrado')
   })
 
-  it('should throw an error if required fields are missing', async () => {
+  it('should throw an error if required fields are missing', async () => 
+    {
+      const typeProfessional = await prisma.typeProfessional.create({
+        data: { describe: 'Médico', situation: true }
+      })
     const data = {
       telephone: '11777777777',
       email: 'pedro@example.com',
       situation: true,
-      typeOfProfessionalId: 1,
+      typeOfProfessionalId: typeProfessional.id,
     }
 
     await expect(service.create(data as any)).rejects.toThrow()
+  })
+
+  it('should return all professionals', async () => {
+    const typeProfessional = await prisma.typeProfessional.create({
+      data: { describe: 'Atendente', situation: true }
+    })
+    await service.create({
+      nome: 'Clyde Drexler',
+      telephone: '14994596999',
+      email: 'Clyde@example.com',
+      situation: true,
+      typeOfProfessionalId: typeProfessional.id
+    })
+    await service.create({
+      nome: 'Post Malone',
+      telephone: '32987654321',
+      email: 'Stoney@example.com',
+      situation: true,
+      typeOfProfessionalId: typeProfessional.id
+    })
+
+    const result = await service.findAll()
+  
+    expect(result.length).toBeGreaterThanOrEqual(2)
+    expect(result.map(response => response.nome)).toEqual(
+      expect.arrayContaining(['Clyde Drexler', 'Post Malone'])
+    )
   })
 })
