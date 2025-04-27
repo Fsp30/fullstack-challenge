@@ -38,8 +38,12 @@ export class ProfessionalService {
     return await this.prisma.professional.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} professional`;
+  async findOne(id: number):Promise<Professional> {
+    const professional = await this.prisma.professional.findUnique({where: {id}})
+    if(!professional){
+      throw new ResourceNotFoundException('Profissional')
+    }
+    return professional
   }
 
   update(id: number, updateProfessionalDto: UpdateProfessionalDto) {
