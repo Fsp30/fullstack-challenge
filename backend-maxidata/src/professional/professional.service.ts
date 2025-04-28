@@ -46,9 +46,22 @@ export class ProfessionalService {
     return professional
   }
 
-  update(id: number, updateProfessionalDto: UpdateProfessionalDto):Promise<Professional> {
-    return `This action updates a #${id} professional`;
-  }
+  async update(id: number, input: UpdateProfessionalDto):Promise<Professional>{
+    const professional = await this.prisma.professional.findUnique({where: {id}})
+    
+    if(!professional) throw new ResourceNotFoundException('Profissional')
+
+    const dto = plainToInstance(UpdateProfessionalDto, input)
+    await validateOrReject(dto,{
+      whitelist: true,
+      forbidNonWhitelisted: true
+    })
+    return this.prisma.professional.update({
+      where: {id},
+      data: dto
+    })
+    
+    }
 
   remove(id: number) {
     return `This action removes a #${id} professional`;
