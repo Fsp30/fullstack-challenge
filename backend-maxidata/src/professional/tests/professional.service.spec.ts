@@ -125,4 +125,33 @@ describe('ProfessionalService', () => {
   it('should throw an error if professional is not found', async () => {
     await expect(service.findOne(99999)).rejects.toThrow('Profissional não encontrado')
   })
+
+  it('should update a professional', async () => {
+    const typeProfessional = await prisma.typeProfessional.create({
+      data: { describe: 'Designer', situation: true },
+    })
+  
+    const created = await service.create({
+      nome: 'Ana Clara',
+      telephone: '11999998888',
+      email: 'ana@example.com',
+      situation: true,
+      typeOfProfessionalId: typeProfessional.id,
+    })
+  
+    const updateData = {
+      nome: 'Ana Beatriz',
+      telephone: '11999997777',
+      email: 'anab@example.com',
+      situation: false,
+      typeOfProfessionalId: typeProfessional.id,
+    }
+    const updated = await service.update(created.id, updateData)
+  
+    expect(updated.nome).toBe('Ana Beatriz')
+    expect(updated.telephone).toBe('11999997777')
+    expect(updated.email).toBe('anab@example.com')
+    expect(updated.situation).toBe(false)
+  })
+  
 })
