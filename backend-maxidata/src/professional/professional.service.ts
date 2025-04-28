@@ -63,7 +63,10 @@ export class ProfessionalService {
     
     }
 
-  remove(id: number) {
-    return `This action removes a #${id} professional`;
+  async remove(id: number): Promise<void> {
+    const professional = this.prisma.professional.findUnique({where: {id}})
+    if(!professional) throw new ResourceNotFoundException('Profissional')
+
+    await this.prisma.professional.delete({where: {id}})
   }
 }
