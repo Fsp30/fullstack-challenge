@@ -153,5 +153,23 @@ describe('ProfessionalService', () => {
     expect(updated.email).toBe('anab@example.com')
     expect(updated.situation).toBe(false)
   })
+
+  it('should remove a professional', async () => {
+    const typeProfessional = await prisma.typeProfessional.create({
+      data: { describe: 'Mecânico', situation: true },
+    })
+  
+    const created = await service.create({
+      nome: 'Carlos Souza',
+      telephone: '11888887777',
+      email: 'carlos@example.com',
+      situation: true,
+      typeOfProfessionalId: typeProfessional.id,
+    })
+  
+    await service.remove(created.id)
+  
+    await expect(service.findOne(created.id)).rejects.toThrowError('Profissional não encontrado')
+  })
   
 })
