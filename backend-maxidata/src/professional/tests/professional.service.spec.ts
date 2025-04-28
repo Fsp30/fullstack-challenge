@@ -1,5 +1,5 @@
 import { ProfessionalService } from '../professional.service'
-import { PrismaClient } from '@generated/prisma'
+import { PrismaClient} from '../../../generated/prisma'
 import { jest } from '@jest/globals'
 
 const prisma = new PrismaClient()

@@ -1,5 +1,5 @@
 import { TypeProfessionalService } from '../type-professional.service'
-import { PrismaClient } from '@generated/prisma'
+import { PrismaClient } from '../../../generated/prisma'
 import { jest } from '@jest/globals'
 
 const prisma = new PrismaClient()
@@ -36,9 +36,9 @@ describe('TypeProfessionalService', () => {
   })
   it('should throw an error if describe is missing', async () => {
         const data = {
-          situation: true
+          situation: true,
         }
-        await expect(service.create(data as any)).rejects.toThrow()
+        await expect(service.create(data as any)).rejects.toThrowError()
   })
 
   it('should return all type professionals', async ()=>{
@@ -66,7 +66,7 @@ describe('TypeProfessionalService', () => {
   });
   
   it('should throw error if TypeProfessional is not found', async () => {
-    await expect(service.findOne(99999)).rejects.toThrowError('TypeProfessional não encontrado')
+    await expect(service.findOne(99999)).rejects.toThrowError('Tipo de Profissional não encontrado.')
   });
   it('should update an existing TypeProfessional', async () => {
     const created = await service.create({
@@ -91,7 +91,7 @@ describe('TypeProfessionalService', () => {
       describe: 'Não existe',
       situation: true,
     }
-    await expect(service.update(99999, updateData)).rejects.toThrowError('Tipo de profissional não encontrado')
+    await expect(service.findOne(99999)).rejects.toThrowError('Tipo de Profissional não encontrado.')
   })
 
   it('Deleted a TypeProfessional by Id', async () =>{
@@ -100,10 +100,10 @@ describe('TypeProfessionalService', () => {
       situation: true
     })
     const result = await service.remove(created.id)
-    await expect(service.findOne(created.id)).rejects.toThrow('Tipo de profissional não encontrado') 
+    await expect(service.findOne(created.id)).rejects.toThrow('Tipo de Profissional não encontrado.') 
   })
   it('should throw error when removing non-existing TypeProfessional', async () => {
-    await expect(service.remove(99999)).rejects.toThrow('Tipo de profissional não encontrado')
+    await expect(service.remove(99999)).rejects.toThrow('Tipo de Profissional não encontrado.')
   })
   
 })

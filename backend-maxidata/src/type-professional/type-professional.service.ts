@@ -3,8 +3,8 @@ import { plainToInstance } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
 import { CreateTypeProfessionalDto } from './dto/create-type-professional.dto';
 import { UpdateTypeProfessionalDto } from './dto/update-type-professional.dto';
-import { PrismaClient, TypeProfessional } from '@generated/prisma'
-import { ResourceNotFoundException } from '@/shared/errors/ResourceNotFoundException';
+import { PrismaClient, TypeProfessional } from '../../generated/prisma'
+import { ResourceNotFoundException } from '../shared/errors/ResourceNotFoundException';
 
 @Injectable()
 export class TypeProfessionalService {
@@ -12,14 +12,18 @@ export class TypeProfessionalService {
   constructor(private prisma: PrismaClient) { }
 
   async create(input: CreateTypeProfessionalDto) {
-    const dto = plainToInstance(CreateTypeProfessionalDto, input)
-
-    await validateOrReject(dto, {
-      whitelist: true,
-      forbidNonWhitelisted: true
-    })
-    return this.prisma.typeProfessional.create({ data: dto })
+    const dto = plainToInstance(CreateTypeProfessionalDto, input);
+    try {
+      await validateOrReject(dto, {
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      })
+    } catch (errors) {
+      throw new Error('Validation failed')
+    }
+    return this.prisma.typeProfessional.create({ data: dto });
   }
+  
 
   async findAll():Promise<TypeProfessional[]> {
     return await this.prisma.typeProfessional.findMany()

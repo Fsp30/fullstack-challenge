@@ -3,8 +3,8 @@ import { CreateProfessionalDto } from './dto/create-professional.dto';
 import { UpdateProfessionalDto } from './dto/update-professional.dto';
 import { plainToInstance } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
-import { PrismaClient, Professional } from '@generated/prisma'
-import { ResourceNotFoundException } from '@/shared/errors/ResourceNotFoundException';
+import { PrismaClient, Professional } from '../../generated/prisma'
+import { ResourceNotFoundException } from '../shared/errors/ResourceNotFoundException';
 
 @Injectable()
 export class ProfessionalService {
