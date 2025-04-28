@@ -5,6 +5,7 @@ import { CreateTypeProfessionalDto } from './dto/create-type-professional.dto';
 import { UpdateTypeProfessionalDto } from './dto/update-type-professional.dto';
 import { PrismaClient, TypeProfessional } from '../../generated/prisma'
 import { ResourceNotFoundException } from '../shared/errors/ResourceNotFoundException';
+import { BadRequestException } from '../shared/errors/BadRequestExceptions';
 
 @Injectable()
 export class TypeProfessionalService {
@@ -19,7 +20,7 @@ export class TypeProfessionalService {
         forbidNonWhitelisted: true,
       })
     } catch (errors) {
-      throw new Error('Validation failed')
+      throw new BadRequestException('Validation failed')
     }
     return this.prisma.typeProfessional.create({ data: dto });
   }
