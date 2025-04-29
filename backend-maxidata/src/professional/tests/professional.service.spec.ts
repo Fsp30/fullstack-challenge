@@ -151,7 +151,7 @@ describe('ProfessionalService', () => {
       telephone: '11999997777',
       email: 'anab@example.com',
       situation: false,
-      typeOfProfessionalId: typeProfessional.id,
+      typeProfessionalId: typeProfessional.id,
     }
     const updated = await service.update(created.id, updateData)
   
