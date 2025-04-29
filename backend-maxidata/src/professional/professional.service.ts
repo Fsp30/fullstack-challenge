@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { BadRequestException } from '@/shared/errors/BadRequestExceptions';
 import { CreateProfessionalDto } from './dto/create-professional.dto';
 import { UpdateProfessionalDto } from './dto/update-professional.dto';
 import { plainToInstance } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
 import { PrismaClient, Professional } from '../../generated/prisma'
 import { ResourceNotFoundException } from '../shared/errors/ResourceNotFoundException';
+import { ValidationException } from '../shared/errors/ValidateException';
 
 @Injectable()
 export class ProfessionalService {
@@ -13,10 +15,14 @@ export class ProfessionalService {
   async create(input: CreateProfessionalDto){
     const dto = plainToInstance(CreateProfessionalDto, input)
 
-    await validateOrReject(dto,{
-      whitelist:true,
-      forbidNonWhitelisted: true
-    })
+    try{
+      await validateOrReject(dto,{
+        whitelist:true,
+        forbidNonWhitelisted: true
+      })
+    }catch(errors){
+      throw new ValidationException(errors)
+    }
     const typeProfessional = await this.prisma.typeProfessional.findUnique({
       where: {id: Number(dto.typeOfProfessionalId)}
     })
@@ -31,6 +37,7 @@ export class ProfessionalService {
         typeProfessionalId: dto.typeOfProfessionalId,
         situation: dto.situation,
       },
+      include: {typeProfessional: true}
     })
   }
 

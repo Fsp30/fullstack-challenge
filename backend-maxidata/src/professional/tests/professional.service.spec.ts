@@ -41,12 +41,19 @@ describe('ProfessionalService', () => {
     expect(result).toMatchObject({
       id: expect.any(Number),
       nome: data.nome,
-      telephone: data.telephone,
       email: data.email,
+      telephone: data.telephone,
+      typeProfessionalId: expect.any(Number),
       situation: data.situation,
-      typeOfProfessionalId: data.typeOfProfessionalId,
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
+      typeProfessional: { 
+        id: data.typeOfProfessionalId,
+        describe: expect.any(String),
+        situation: expect.any(Boolean),
+        createdAt: expect.any(Date),
+        updatedAt: expect.any(Date),
+      }
     })
   })
 
@@ -58,7 +65,7 @@ describe('ProfessionalService', () => {
       situation: true,
       typeOfProfessionalId: 99999,
     }
-    await expect(service.create(data)).rejects.toThrowError('Tipo de profissional não encontrado')
+    await expect(service.create(data)).rejects.toThrowError('Tipo de Profissional não encontrado.')
   })
 
   it('should throw an error if required fields are missing', async () => 
@@ -73,7 +80,7 @@ describe('ProfessionalService', () => {
       typeOfProfessionalId: typeProfessional.id,
     }
 
-    await expect(service.create(data as any)).rejects.toThrow()
+    await expect(service.create(data as any)).rejects.toThrowError()
   })
 
   it('should return all professionals', async () => {
@@ -123,7 +130,7 @@ describe('ProfessionalService', () => {
     expect(found.email).toBe('Stoney@example.com')
   })
   it('should throw an error if professional is not found', async () => {
-    await expect(service.findOne(99999)).rejects.toThrow('Profissional não encontrado')
+    await expect(service.findOne(99999)).rejects.toThrow('Profissional não encontrado.')
   })
 
   it('should update a professional', async () => {
@@ -169,7 +176,7 @@ describe('ProfessionalService', () => {
   
     await service.remove(created.id)
   
-    await expect(service.findOne(created.id)).rejects.toThrowError('Profissional não encontrado')
+    await expect(service.findOne(created.id)).rejects.toThrowError('Profissional não encontrado.')
   })
   
 })
