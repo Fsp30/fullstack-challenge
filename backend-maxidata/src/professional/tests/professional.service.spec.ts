@@ -1,8 +1,8 @@
 import { ProfessionalService } from '../professional.service'
-import { PrismaClient} from '../../../generated/prisma'
+import { PrismaService } from '../../shared/database/prisma.service'
 import { jest } from '@jest/globals'
 
-const prisma = new PrismaClient()
+const prisma = new PrismaService()
 
 describe('ProfessionalService', () => {
   let service: ProfessionalService

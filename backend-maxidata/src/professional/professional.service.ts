@@ -4,13 +4,14 @@ import { CreateProfessionalDto } from './dto/create-professional.dto';
 import { UpdateProfessionalDto } from './dto/update-professional.dto';
 import { plainToInstance } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
-import { PrismaClient, Professional } from '../../generated/prisma'
+import { Professional } from '../../generated/prisma'
+import { PrismaService } from '../shared/database/prisma.service';
 import { ResourceNotFoundException } from '../shared/errors/ResourceNotFoundException';
 import { ValidationException } from '../shared/errors/ValidateException';
 
 @Injectable()
 export class ProfessionalService {
-  constructor(private prisma:PrismaClient){}
+  constructor(private prisma:PrismaService){}
 
   async create(input: CreateProfessionalDto){
     const dto = plainToInstance(CreateProfessionalDto, input)
