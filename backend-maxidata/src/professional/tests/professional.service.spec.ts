@@ -1,6 +1,5 @@
 import { ProfessionalService } from '../professional.service'
 import { PrismaService } from '../../shared/database/prisma.service'
-import { jest } from '@jest/globals'
 
 const prisma = new PrismaService()
 
@@ -47,7 +46,7 @@ describe('ProfessionalService', () => {
       situation: data.situation,
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
-      typeProfessional: { 
+      typeProfessional: {
         id: data.typeOfProfessionalId,
         describe: expect.any(String),
         situation: expect.any(Boolean),
@@ -68,11 +67,10 @@ describe('ProfessionalService', () => {
     await expect(service.create(data)).rejects.toThrowError('Tipo de Profissional não encontrado.')
   })
 
-  it('should throw an error if required fields are missing', async () => 
-    {
-      const typeProfessional = await prisma.typeProfessional.create({
-        data: { describe: 'Médico', situation: true }
-      })
+  it('should throw an error if required fields are missing', async () => {
+    const typeProfessional = await prisma.typeProfessional.create({
+      data: { describe: 'Médico', situation: true }
+    })
     const data = {
       telephone: '11777777777',
       email: 'pedro@example.com',
@@ -103,7 +101,7 @@ describe('ProfessionalService', () => {
     })
 
     const result = await service.findAll()
-  
+
     expect(result.length).toBeGreaterThanOrEqual(2)
     expect(result.map(response => response.nome)).toEqual(
       expect.arrayContaining(['Clyde Drexler', 'Post Malone'])
@@ -133,11 +131,55 @@ describe('ProfessionalService', () => {
     await expect(service.findOne(99999)).rejects.toThrow('Profissional não encontrado.')
   })
 
+  it('should return all professionals of a specific type', async () => {
+    const typeA = await prisma.typeProfessional.create({
+      data: { describe: 'Psicólogo', situation: true },
+    })
+    const typeB = await prisma.typeProfessional.create({
+      data: { describe: 'Fisioterapeuta', situation: true },
+    })
+
+    await service.create({
+      nome: 'Laura Mendes',
+      telephone: '11912345678',
+      email: 'laura@example.com',
+      situation: true,
+      typeOfProfessionalId: typeA.id,
+    })
+
+    await service.create({
+      nome: 'João Pedro',
+      telephone: '11987654321',
+      email: 'joaop@example.com',
+      situation: true,
+      typeOfProfessionalId: typeA.id,
+    })
+
+    await service.create({
+      nome: 'Carlos Eduardo',
+      telephone: '11955556666',
+      email: 'carlos@example.com',
+      situation: true,
+      typeOfProfessionalId: typeB.id,
+    })
+
+    const result = await service.findByType(typeA.id)
+    expect(result).toHaveLength(2)
+    expect(result.map(p => p.nome)).toEqual(
+      expect.arrayContaining(['Laura Mendes', 'João Pedro'])
+    )
+  })
+
+  it('should throw an error if type of professional does not exist (findByType)', async () => {
+    await expect(service.findByType(9999)).rejects.toThrow('Tipo de Profissional não encontrado.')
+  })
+
+
   it('should update a professional', async () => {
     const typeProfessional = await prisma.typeProfessional.create({
       data: { describe: 'Designer', situation: true },
     })
-  
+
     const created = await service.create({
       nome: 'Ana Clara',
       telephone: '11999998888',
@@ -145,7 +187,7 @@ describe('ProfessionalService', () => {
       situation: true,
       typeOfProfessionalId: typeProfessional.id,
     })
-  
+
     const updateData = {
       nome: 'Ana Beatriz',
       telephone: '11999997777',
@@ -154,7 +196,7 @@ describe('ProfessionalService', () => {
       typeProfessionalId: typeProfessional.id,
     }
     const updated = await service.update(created.id, updateData)
-  
+
     expect(updated.nome).toBe('Ana Beatriz')
     expect(updated.telephone).toBe('11999997777')
     expect(updated.email).toBe('anab@example.com')
@@ -165,7 +207,7 @@ describe('ProfessionalService', () => {
     const typeProfessional = await prisma.typeProfessional.create({
       data: { describe: 'Mecânico', situation: true },
     })
-  
+
     const created = await service.create({
       nome: 'Carlos Souza',
       telephone: '11888887777',
@@ -173,10 +215,10 @@ describe('ProfessionalService', () => {
       situation: true,
       typeOfProfessionalId: typeProfessional.id,
     })
-  
+
     await service.remove(created.id)
-  
+
     await expect(service.findOne(created.id)).rejects.toThrowError('Profissional não encontrado.')
   })
-  
+
 })

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ProfessionalService } from './professional.service';
 import { CreateProfessionalDto } from './dto/create-professional.dto';
 import { UpdateProfessionalDto } from './dto/update-professional.dto';
@@ -20,6 +20,11 @@ export class ProfessionalController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.professionalService.findOne(+id);
+  }
+
+  @Get('filter/by-type')
+  findByType(@Query('typeId') typeId: string){
+    return this.professionalService.findByType(Number(typeId))
   }
 
   @Patch(':id')

@@ -54,6 +54,18 @@ export class ProfessionalService {
     return professional
   }
 
+  async findByType(typeId: number): Promise<Professional[]>{
+    const typeExists = await this.prisma.typeProfessional.findUnique({
+      where: {id: typeId}
+    })
+    if (!typeExists) throw new ResourceNotFoundException('Tipo de Profissional')
+
+    return this.prisma.professional.findMany({
+      where: {typeProfessionalId: typeId},
+      include: {typeProfessional: true}
+    })
+  }
+
   async update(id: number, input: UpdateProfessionalDto):Promise<Professional>{
     const professional = await this.prisma.professional.findUnique({where: {id}})
     
