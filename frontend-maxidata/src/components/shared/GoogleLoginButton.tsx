@@ -10,6 +10,7 @@ export function GoogleLoginButton() {
     if (window.google) {
       window.google.accounts.id.initialize({
         client_id: ClientId,
+        auto_select: true,
         callback: handleCredentialResponse,
       })
 

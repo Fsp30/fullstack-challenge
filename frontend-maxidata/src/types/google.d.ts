@@ -15,6 +15,7 @@ declare global {
 
       function initialize(config: {
         client_id: string
+        auto_select: boolean
         callback: (response: CredentialResponse) => void
       }): void
 
