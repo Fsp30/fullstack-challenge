@@ -11,9 +11,9 @@ const UpdateTypeProfessionalSchema = TypeProfessionalBaseSchema
 const ResponseTypeProfessionalSchema = TypeProfessionalBaseSchema.extend({
         id: z.number(),
         describe: z.string(),
-        situation: z.string(),
-        createdAt: z.string().datetime(),
-        updatedAt: z.string().datetime(),
+        situation: z.boolean(),
+        createdAt: z.date(),
+        updatedAt: z.date(),
 })
 
 const TypeProfessionalListSchema = z.array(ResponseTypeProfessionalSchema)
