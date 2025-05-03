@@ -19,8 +19,8 @@ const ProfessionalResponseSchema = ProfessionalBaseSchema.extend({
                 id: z.number(),
                 describe: z.string(),
                 situation: z.boolean(),
-                createdAt: z.string().datetime(),
-                updatedAt: z.string().datetime(),
+                createdAt: z.date(),
+                updatedAt: z.date(),
         })
 })
 
