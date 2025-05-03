@@ -2,9 +2,10 @@ import { api } from "../../../services/api";
 import { CreateProfessionalDto } from "../types";
 import { UpdateProfessionalDto } from "../types";
 import { ProfessionalResponse } from "../types";
+import { ProfessionalListResponse } from "../types";
 
 export const ProfessionalService = {
-        findAll: async(): Promise<ProfessionalResponse[]> => {
+        findAll: async(): Promise<ProfessionalListResponse[]> => {
                 const response = await api.get("/professional")
                 return response.data
         },
