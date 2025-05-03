@@ -45,8 +45,9 @@ describe('TypeProfessionalService', () => {
     await service.create({describe: 'Motorista', situation: true})
     await service.create({describe: 'Carteiro', situation: false})
     await service.create({describe: 'Zelador', situation: true})
-
-    const result = await service.findAll()
+    const page = 1
+    const limit = 2
+    const result = await service.findAll(page, limit)
 
     expect(result.length).toBeGreaterThanOrEqual(2)
     expect(result.map(r => r.describe)).toEqual(

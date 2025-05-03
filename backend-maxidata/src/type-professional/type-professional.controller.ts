@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { TypeProfessionalService } from './type-professional.service';
 import { CreateTypeProfessionalDto } from './dto/create-type-professional.dto';
 import { UpdateTypeProfessionalDto } from './dto/update-type-professional.dto';
@@ -7,7 +7,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
 @ApiTags('TypeProfessional')
 @Controller('type-professional')
 export class TypeProfessionalController {
-  constructor(private readonly typeProfessionalService: TypeProfessionalService) {}
+  constructor(private readonly typeProfessionalService: TypeProfessionalService) { }
 
   @Post()
   @ApiOperation({ summary: 'Cria um novo tipo de profissional' })
@@ -17,10 +17,18 @@ export class TypeProfessionalController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Retorna todos os Tipos de Profissionais' })
+  @ApiOperation({ summary: 'Retorna todos os Tipos de Profissionais com paginação de 10 itens' })
   @ApiResponse({ status: 200, description: 'Tipos de Profissionais retornado com sucesso.' })
-  findAll() {
-    return this.typeProfessionalService.findAll();
+  findAll(
+    @Query('page')
+    page: string = '1',
+
+    @Query('limit') 
+    limit: string = '10'
+  ) {
+    const pageNumber = parseInt(page, 10)
+    const limitNumer = parseInt(limit, 10)
+    return this.typeProfessionalService.findAll(pageNumber, limitNumer);
   }
 
   @Get(':id')

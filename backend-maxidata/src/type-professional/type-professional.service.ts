@@ -27,8 +27,13 @@ export class TypeProfessionalService {
   }
   
 
-  async findAll():Promise<TypeProfessional[]> {
-    return await this.prisma.typeProfessional.findMany()
+  async findAll(page: number, limit:number = 10):Promise<TypeProfessional[]> {
+    const skip = (page - 1) * limit
+
+    return await this.prisma.typeProfessional.findMany({
+      skip: skip,
+      take: limit
+    })
   }
 
   async findOne(id: number): Promise<TypeProfessional> {
