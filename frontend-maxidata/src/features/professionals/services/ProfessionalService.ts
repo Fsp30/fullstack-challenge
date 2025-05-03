@@ -1,6 +1,6 @@
 import { api } from "../../../services/api";
 import { CreateProfessionalDto } from "../types";
-import { UpdateProfessionaleDto } from "../types";
+import { UpdateProfessionalDto } from "../types";
 import { ProfessionalResponse } from "../types";
 
 export const ProfessionalService = {
@@ -18,7 +18,7 @@ export const ProfessionalService = {
                 await api.post("/professional", data)
         },
 
-        update: async(data: UpdateProfessionaleDto, id:string):Promise<ProfessionalResponse> =>{
+        update: async(data: UpdateProfessionalDto, id:string):Promise<ProfessionalResponse> =>{
                 const response = await api.put(`/professional/${id}`, data)
                 return response.data
         },

@@ -25,5 +25,5 @@ const ProfessionalResponseSchema = ProfessionalBaseSchema.extend({
 })
 
 export type CreateProfessionalDto = z.infer<typeof CreateProfissionalSchema>
-export type UpdateProfessionaleDto = z.infer<typeof UpdateProfessionalSchema>
+export type UpdateProfessionalDto = z.infer<typeof UpdateProfessionalSchema>
 export type ProfessionalResponse = z.infer<typeof ProfessionalResponseSchema>
