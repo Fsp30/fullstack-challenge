@@ -14,7 +14,11 @@ export const ProfessionalService = {
                 const response = await api.get(`/professional/${id}`)
                 return response.data
         },
-
+        findByType: async(typeId: string): Promise<ProfessionalListResponse[]> =>{
+                const response = await api.get(`/profeessional/filter/by-type${typeId}`)
+                return response.data
+        }
+        ,
         create: async(data: CreateProfessionalDto): Promise<void> => {
                 await api.post("/professional", data)
         },
