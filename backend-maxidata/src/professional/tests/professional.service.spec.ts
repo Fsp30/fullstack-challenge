@@ -100,7 +100,10 @@ describe('ProfessionalService', () => {
       typeOfProfessionalId: typeProfessional.id
     })
 
-    const result = await service.findAll()
+    const page = 1
+    const limit = 2
+
+    const result = await service.findAll(page, limit)
 
     expect(result.length).toBeGreaterThanOrEqual(2)
     expect(result.map(response => response.nome)).toEqual(
@@ -163,7 +166,10 @@ describe('ProfessionalService', () => {
       typeOfProfessionalId: typeB.id,
     })
 
-    const result = await service.findByType(typeA.id)
+    const page = 1
+    const limit = 2
+
+    const result = await service.findByType(typeA.id, page, limit)
     expect(result).toHaveLength(2)
     expect(result.map(p => p.nome)).toEqual(
       expect.arrayContaining(['Laura Mendes', 'João Pedro'])
@@ -171,7 +177,7 @@ describe('ProfessionalService', () => {
   })
 
   it('should throw an error if type of professional does not exist (findByType)', async () => {
-    await expect(service.findByType(9999)).rejects.toThrow('Tipo de Profissional não encontrado.')
+    await expect(service.findByType(9999, 1, 1)).rejects.toThrow('Tipo de Profissional não encontrado.')
   })
 
 

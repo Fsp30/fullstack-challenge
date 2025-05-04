@@ -11,23 +11,23 @@ import { ValidationException } from '../shared/errors/ValidateException';
 
 @Injectable()
 export class ProfessionalService {
-  constructor(private prisma:PrismaService){}
+  constructor(private prisma: PrismaService) { }
 
-  async create(input: CreateProfessionalDto){
+  async create(input: CreateProfessionalDto) {
     const dto = plainToInstance(CreateProfessionalDto, input)
 
-    try{
-      await validateOrReject(dto,{
-        whitelist:true,
+    try {
+      await validateOrReject(dto, {
+        whitelist: true,
         forbidNonWhitelisted: true
       })
-    }catch(errors){
+    } catch (errors) {
       throw new ValidationException(errors)
     }
     const typeProfessional = await this.prisma.typeProfessional.findUnique({
-      where: {id: Number(dto.typeOfProfessionalId)}
+      where: { id: Number(dto.typeOfProfessionalId) }
     })
-    if(!typeProfessional){
+    if (!typeProfessional) {
       throw new ResourceNotFoundException("Tipo de Profissional")
     }
     return this.prisma.professional.create({
@@ -38,55 +38,63 @@ export class ProfessionalService {
         typeProfessionalId: dto.typeOfProfessionalId,
         situation: dto.situation,
       },
-      include: {typeProfessional: true}
+      include: { typeProfessional: true }
     })
   }
 
-  async findAll():Promise<Professional[]> {
-    return await this.prisma.professional.findMany()
+  async findAll(page: number, limit: number): Promise<Professional[]> {
+    const skip = (page - 1) * limit
+
+    return await this.prisma.professional.findMany({
+      skip: skip,
+      take: limit
+    })
   }
 
-  async findOne(id: number):Promise<Professional> {
-    const professional = await this.prisma.professional.findUnique({where: {id}})
-    if(!professional){
+  async findOne(id: number): Promise<Professional> {
+    const professional = await this.prisma.professional.findUnique({ where: { id } })
+    if (!professional) {
       throw new ResourceNotFoundException('Profissional')
     }
     return professional
   }
 
-  async findByType(typeId: number): Promise<Professional[]>{
+  async findByType(typeId: number, page: number, limit: number): Promise<Professional[]> {
     const typeExists = await this.prisma.typeProfessional.findUnique({
-      where: {id: typeId}
+      where: { id: typeId }
     })
     if (!typeExists) throw new ResourceNotFoundException('Tipo de Profissional')
 
+    const skip = (page - 1) * limit
     return this.prisma.professional.findMany({
-      where: {typeProfessionalId: typeId},
-      include: {typeProfessional: true}
+      skip: skip,
+      take: limit,
+      where: { typeProfessionalId: typeId },
+      include: { typeProfessional: true }
     })
   }
 
-  async update(id: number, input: UpdateProfessionalDto):Promise<Professional>{
-    const professional = await this.prisma.professional.findUnique({where: {id}})
-    
-    if(!professional) throw new ResourceNotFoundException('Profissional')
+  async update(id: number, input: UpdateProfessionalDto): Promise<Professional> {
+    const professional = await this.prisma.professional.findUnique({ where: { id } })
+
+    if (!professional) throw new ResourceNotFoundException('Profissional')
 
     const dto = plainToInstance(UpdateProfessionalDto, input)
-    await validateOrReject(dto,{
+    await validateOrReject(dto, {
       whitelist: true,
       forbidNonWhitelisted: true
     })
     return this.prisma.professional.update({
-      where: {id},
+      where: { id },
       data: dto
     })
-    
-    }
+
+  }
 
   async remove(id: number): Promise<void> {
-    const professional = this.prisma.professional.findUnique({where: {id}})
-    if(!professional) throw new ResourceNotFoundException('Profissional')
+    const professional = this.prisma.professional.findUnique({ where: { id } })
+    if (!professional) throw new ResourceNotFoundException('Profissional')
 
-    await this.prisma.professional.delete({where: {id}})
+    await this.prisma.professional.delete({ where: { id } })
   }
 }

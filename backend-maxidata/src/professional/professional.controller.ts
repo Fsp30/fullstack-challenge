@@ -7,7 +7,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
 @ApiTags('Professiona')
 @Controller('professional')
 export class ProfessionalController {
-  constructor(private readonly professionalService: ProfessionalService) {}
+  constructor(private readonly professionalService: ProfessionalService) { }
 
   @Post()
   @ApiOperation({ summary: 'Cria um novo profissional' })
@@ -17,10 +17,18 @@ export class ProfessionalController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Lista profissionais por tipo' })
+  @ApiOperation({ summary: 'Lista profissionais por tipo com paginação de 10 itens' })
   @ApiResponse({ status: 200, description: 'Lista retornada com sucesso.' })
-  findAll() {
-    return this.professionalService.findAll();
+  findAll(
+    @Query('page')
+    page: string = '1',
+
+    @Query('limit')
+    limit: string = '10') {
+
+    const pageNumber = parseInt(page, 10)
+    const limitNumber = parseInt(limit, 10)
+    return this.professionalService.findAll(pageNumber, limitNumber);
   }
 
   @Get(':id')
@@ -33,8 +41,20 @@ export class ProfessionalController {
   @Get('filter/by-type')
   @ApiOperation({ summary: 'Retorna uma lista de profissionais por id de Tipo de Profissional' })
   @ApiResponse({ status: 200, description: 'Lista de profissionais retornada com sucesso.' })
-  findByType(@Query('typeId') typeId: string){
-    return this.professionalService.findByType(Number(typeId))
+  findByType(
+    @Query('typeId')
+    typeId: string,
+
+    @Query('page')
+    page: string = '1',
+
+    @Query('limit')
+    limit: string = '10'
+  ) {
+    const pageNumber = parseInt(page, 10)
+    const limitNumber = parseInt(limit, 10)
+
+    return this.professionalService.findByType(Number(typeId), pageNumber, limitNumber)
   }
 
   @Patch(':id')
