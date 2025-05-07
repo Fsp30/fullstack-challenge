@@ -5,7 +5,7 @@ const TypeProfessionalBaseSchema = z.object({
         situation: z.boolean()
 })
 
-const CreateTypeProfessionalSchema = TypeProfessionalBaseSchema
+export const CreateTypeProfessionalSchema = TypeProfessionalBaseSchema
 const UpdateTypeProfessionalSchema = TypeProfessionalBaseSchema
 
 const ResponseTypeProfessionalSchema = TypeProfessionalBaseSchema.extend({
