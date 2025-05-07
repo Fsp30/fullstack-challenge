@@ -5,7 +5,7 @@ import { ResponseTypeProfessional } from "../types";
 import { ResponseTypeProfessionalList } from "../types";
 
 export const TypeProfessionalService = {
-        findAll: async (page:number = 1, limit:number = 10): Promise<{data: ResponseTypeProfessionalList[], total: number}> => {
+        findAll: async (page:number = 1, limit:number = 10): Promise<{data: ResponseTypeProfessionalList, total: number}> => {
                 const response = await api.get(`/type-professional?page=${page}&limit=${limit}`)
                 return response.data
         },
