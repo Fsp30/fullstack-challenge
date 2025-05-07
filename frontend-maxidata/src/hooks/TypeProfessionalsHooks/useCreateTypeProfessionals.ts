@@ -2,15 +2,24 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateTypeProfessionalDto } from "../../features/typeProfessionals/types";
 import { createTypeProfessionals } from "../../features/typeProfessionals/api/createTypeProfessionals";
 
-export function useCreateTypeProfessionals(){
+export function useCreateTypeProfessionals() {
         const queryClient = useQueryClient()
-
-        return useMutation({
-                mutationFn: (data: CreateTypeProfessionalDto) => createTypeProfessionals(data),
-                onSuccess: () => {
-                        queryClient.invalidateQueries({
-                                queryKey: ["typeProfessional"]
-                        })
-                }
+      
+        const mutation = useMutation({
+          mutationFn: (data: CreateTypeProfessionalDto) => createTypeProfessionals(data),
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["typeProfessional"]
+            })
+          }
         })
-}
+      
+        return {
+          mutate: mutation.mutate,
+          isPeding: mutation.isPending,
+          isError: mutation.isError,
+          isSuccess: mutation.isSuccess,
+          error: mutation.error
+        }
+      }
+      
