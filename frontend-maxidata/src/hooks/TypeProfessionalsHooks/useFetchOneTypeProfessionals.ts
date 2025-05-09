@@ -6,9 +6,17 @@ type Params = {
 }
 
 export function useFetchOneTypeProfessional(id: Params){
-        return useQuery({
+        const query = useQuery({
                 queryKey: ["typeProfessional", id],
-                queryFn: () => fetchOneTypeProfessionals(id),
-                enabled: !!id,
-              })
+                queryFn: () => { return fetchOneTypeProfessionals(id) },
+                enabled: !!id, 
+              });
+            
+              return {
+                data: query.data,
+                isLoading: query.isLoading,
+                isError: query.isError,
+                isSuccess: query.isSuccess,
+                error: query.error,
+              }
 }
