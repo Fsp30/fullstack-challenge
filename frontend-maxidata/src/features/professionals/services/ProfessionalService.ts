@@ -10,11 +10,11 @@ export const ProfessionalService = {
                 return response.data
         },
 
-        findOne: async(id: string): Promise<ProfessionalResponse> => {
+        findOne: async(id: number): Promise<ProfessionalResponse> => {
                 const response = await api.get(`/professional/${id}`)
                 return response.data
         },
-        findByType: async(typeId: string): Promise<ProfessionalListResponse[]> =>{
+        findByType: async(typeId: number): Promise<ProfessionalListResponse[]> =>{
                 const response = await api.get(`/profeessional/filter/by-type${typeId}`)
                 return response.data
         }
@@ -23,12 +23,12 @@ export const ProfessionalService = {
                 await api.post("/professional", data)
         },
 
-        update: async(data: UpdateProfessionalDto, id:string):Promise<ProfessionalResponse> =>{
+        update: async(data: UpdateProfessionalDto, id:number):Promise<ProfessionalResponse> =>{
                 const response = await api.put(`/professional/${id}`, data)
                 return response.data
         },
 
-        remove: async(id:string): Promise<void> =>{
+        remove: async(id:number): Promise<void> =>{
                 await api.delete(`/professional/${id}`)
         }
         

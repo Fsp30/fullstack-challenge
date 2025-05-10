@@ -10,7 +10,7 @@ export const TypeProfessionalService = {
                 return response.data
         },
 
-        findOne: async (id: string): Promise<ResponseTypeProfessional> => {
+        findOne: async (id: number): Promise<ResponseTypeProfessional> => {
                 const response = await api.get(`/type-professional/${id}`)
                 return response.data
         },
@@ -19,12 +19,12 @@ export const TypeProfessionalService = {
                 await api.post("/type-professional", data)
         },
 
-        update: async(data: UpdateTypeProfessionalDto, id:string): Promise<ResponseTypeProfessional> =>{
+        update: async(data: UpdateTypeProfessionalDto, id:number): Promise<ResponseTypeProfessional> =>{
                 const response = await api.put(`/type-professional/${id}`, data)
                 return response.data
         },
         
-        remove: async(id:string): Promise<void> =>{
+        remove: async(id:number): Promise<void> =>{
                 await api.delete(`/type-professional/${id}`)
         }
 

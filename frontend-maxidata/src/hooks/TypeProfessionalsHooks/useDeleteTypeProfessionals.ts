@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTypeProfessionals } from "../../features/typeProfessionals/api/deleteTypeProfessionals";
 
 type Params = {
-        id :string
+        id :number
 }
 
 export function useDeleteTypeProfessional() {

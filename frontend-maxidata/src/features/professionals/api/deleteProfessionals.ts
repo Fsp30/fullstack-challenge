@@ -1,7 +1,7 @@
 import { ProfessionalService } from "../services/ProfessionalService";
 
 type Params = {
-        id:string
+        id:number
 }
 
 export const deleteProfessionals = async({id}: Params) =>{

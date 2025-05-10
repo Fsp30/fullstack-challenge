@@ -3,7 +3,7 @@ import { UpdateTypeProfessionalDto } from "../../features/typeProfessionals/type
 import { updateTypeProfessionals } from "../../features/typeProfessionals/api/updateTypeProfessionals";
 
 type UpdateParams = {
-  id: string;
+  id: number;
   data: UpdateTypeProfessionalDto
 }
 

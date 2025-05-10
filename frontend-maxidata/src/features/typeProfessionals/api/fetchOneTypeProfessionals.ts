@@ -1,7 +1,7 @@
 import { TypeProfessionalService } from "../services/TypeProfessionalService";
 
 type Params = {
-        id: string
+        id: number
 }
 
 export const fetchOneTypeProfessionals = async ({id} : Params) => {

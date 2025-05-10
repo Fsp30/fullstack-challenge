@@ -34,21 +34,21 @@ export class TypeProfessionalController {
   @Get(':id')
   @ApiOperation({ summary: 'Retorna um Tipo de Profissional por id' })
   @ApiResponse({ status: 200, description: 'Profissional retornado com sucesso.' })
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.typeProfessionalService.findOne(+id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Atualiza um tipo de Profissional usando o id' })
   @ApiResponse({ status: 202, description: 'Tipo de Profissional atualizado com sucesso.' })
-  update(@Param('id') id: string, @Body() updateTypeProfessionalDto: UpdateTypeProfessionalDto) {
+  update(@Param('id') id: number, @Body() updateTypeProfessionalDto: UpdateTypeProfessionalDto) {
     return this.typeProfessionalService.update(+id, updateTypeProfessionalDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Deleta um Tipo de Profissional' })
   @ApiResponse({ status: 201, description: 'Tipo de Profissional deletado com sucesso.' })
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.typeProfessionalService.remove(+id);
   }
 }

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchOneTypeProfessionals } from "../../features/typeProfessionals/api/fetchOneTypeProfessionals";
 
 type Params = {
-        id: string
+        id: number
 }
 
 export function useFetchOneTypeProfessional(id: Params){

@@ -34,7 +34,7 @@ export class ProfessionalController {
   @Get(':id')
   @ApiOperation({ summary: 'Retorna um profissional por id' })
   @ApiResponse({ status: 200, description: 'Profissional retornado com sucesso.' })
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.professionalService.findOne(+id);
   }
 
@@ -43,7 +43,7 @@ export class ProfessionalController {
   @ApiResponse({ status: 200, description: 'Lista de profissionais retornada com sucesso.' })
   findByType(
     @Query('typeId')
-    typeId: string,
+    typeId: number,
 
     @Query('page')
     page: string = '1',
@@ -60,14 +60,14 @@ export class ProfessionalController {
   @Patch(':id')
   @ApiOperation({ summary: 'Atualiza um profissional por id' })
   @ApiResponse({ status: 201, description: 'Profissional atualizado com sucesso.' })
-  update(@Param('id') id: string, @Body() updateProfessionalDto: UpdateProfessionalDto) {
+  update(@Param('id') id: number, @Body() updateProfessionalDto: UpdateProfessionalDto) {
     return this.professionalService.update(+id, updateProfessionalDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Remove um profissional por id' })
   @ApiResponse({ status: 200, description: 'Profissional deletado com sucesso.' })
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.professionalService.remove(+id);
   }
 }
