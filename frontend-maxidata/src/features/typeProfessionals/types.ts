@@ -9,7 +9,7 @@ export const CreateTypeProfessionalSchema = TypeProfessionalBaseSchema
 const UpdateTypeProfessionalSchema = TypeProfessionalBaseSchema
 
 const ResponseTypeProfessionalSchema = TypeProfessionalBaseSchema.extend({
-        id: z.number(),
+        id: z.string(),
         describe: z.string(),
         situation: z.boolean(),
         createdAt: z.date(),
