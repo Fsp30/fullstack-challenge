@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFetchOneTypeProfessional } from "../../../hooks/TypeProfessionalsHooks/useFetchOneTypeProfessionals";
 
 interface Props {
-        id: string
+        id: number
 }
 
 export function FetchOneTypeProfessionalButton({id} : Props){

@@ -1,7 +1,7 @@
 import { useDeleteTypeProfessional } from "../../../hooks/TypeProfessionalsHooks/useDeleteTypeProfessionals";
 
 interface Props {
-        id: string,
+        id: number,
         onDeleted?: () => void
 }
 

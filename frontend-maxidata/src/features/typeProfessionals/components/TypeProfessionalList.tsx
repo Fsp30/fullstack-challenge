@@ -61,8 +61,6 @@ export function TypeProfessionalsList() {
                                         </li>
                                 ))}
                         </ul>
-
-                        {/* Paginação permanece igual */}
                         <div className="flex items-center justify-between">
                                 <button
                                         onClick={() => setPage((p) => Math.max(p - 1, 1))}
