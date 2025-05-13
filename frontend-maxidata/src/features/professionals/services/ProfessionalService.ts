@@ -14,8 +14,8 @@ export const ProfessionalService = {
                 const response = await api.get(`/professional/${id}`)
                 return response.data
         },
-        findByType: async(typeId: number): Promise<ProfessionalListResponse> =>{
-                const response = await api.get(`/profeessional/filter/by-type${typeId}`)
+        findByType: async(typeId: number, page:number = 1, limit:number = 10): Promise<{data: ProfessionalListResponse, total: number}> =>{
+                const response = await api.get(`/profeessional/filter/by-type/${typeId}&page=${page}&limit${limit}`)
                 return response.data
         }
         ,
