@@ -8,7 +8,7 @@ const ProfessionalBaseSchema = z.object({
         typeOfProfessionalId: z.number().int().positive('Id do tipo do profissional inválido')
 })
 
-const CreateProfissionalSchema = ProfessionalBaseSchema
+export const CreateProfissionalSchema = ProfessionalBaseSchema
 const UpdateProfessionalSchema = ProfessionalBaseSchema
 
 const ProfessionalResponseSchema = ProfessionalBaseSchema.extend({
