@@ -6,7 +6,7 @@ interface TypeProfessionalSelectProps {
         error?: string
 }
 
-export function TypeProfessionalSelectProps({ register, error }: TypeProfessionalSelectProps) {
+export function TypeProfessionalSelect({ register, error }: TypeProfessionalSelectProps) {
 
         const { data: typeProfessionals, isLoading, isError } = useTypeProfessionals(1, 100)
 
