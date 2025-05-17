@@ -7,10 +7,10 @@ import { useEffect } from "react";
 import { useFetchOneTypeProfessional } from "../../../hooks/TypeProfessionalsHooks/useFetchOneTypeProfessionals";
 
 export function UpdateTypeProfessionalForm() {
-  const { id } = useParams<{ id: string }>()
-  const numericId: number = Number(id)
+  const { stringId } = useParams<{ stringId: string }>()
+  const id: number = Number(stringId)
 
-  const { data: existingData, isLoading } = useFetchOneTypeProfessional({ id: numericId! })
+  const { data: existingData, isLoading } = useFetchOneTypeProfessional({ id: id! })
   const { mutate, isPending, isSuccess, isError, error } =
     useUpdateTypeProfessionals()
 
