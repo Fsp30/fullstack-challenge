@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateProfessionalDto, CreateProfissionalSchema } from "../types";
 import { useCreateProfessionals } from "../../../hooks/Professionals/useCreateProfessionals";
-import { useTypeProfessionals } from "../../../hooks/TypeProfessionalsHooks/useTypeProfessionals";
-
+import { TypeProfessionalSelect } from "../../../components/shared/TypeProfessionalSelect";
 
 export function CreateProfessionalForm() {
         const { register, handleSubmit, formState: { errors }, reset } = useForm<CreateProfessionalDto>({
@@ -11,7 +10,6 @@ export function CreateProfessionalForm() {
         })
 
         const { mutate, isPeding, isSuccess, isError, error } = useCreateProfessionals()
-        const { data: typeProfessionals, isLoading: isLoadingTypes, isError: isErrorTypes } = useTypeProfessionals(1, 100)
         const onSubmit = (data: CreateProfessionalDto) => {
                 mutate(data, {
                         onSuccess: () => {
@@ -53,30 +51,10 @@ export function CreateProfessionalForm() {
                                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                         </div>
 
-                        <div>
-                                <label className="block font-medium mb-1">Tipo de Profissional</label>
-                                {isLoadingTypes ? (
-                                        <p className="text-sm text-gray-500">Carregando tipos...</p>
-                                ) : isErrorTypes ? (
-                                        <p className="text-sm text-red-500">Erro ao carregar tipos</p>
-                                ) : (
-                                        <select
-                                                {...register("typeOfProfessionalId", { valueAsNumber: true })}
-                                                className="w-full border rounded px-3 py-2"
-                                                defaultValue=""
-                                        >
-                                                <option value="" disabled>Selecione um tipo</option>
-                                                {typeProfessionals.map((type) => (
-                                                        <option key={type.id} value={type.id}>
-                                                                {type.describe}
-                                                        </option>
-                                                ))}
-                                        </select>
-                                )}
-                                {errors.typeOfProfessionalId && (
-                                        <p className="text-red-500 text-sm mt-1">{errors.typeOfProfessionalId.message}</p>
-                                )}
-                        </div>
+                        <TypeProfessionalSelect
+                                register={register("typeOfProfessionalId", { valueAsNumber: true })}
+                                error={errors.typeOfProfessionalId?.message}
+                        />
                         <div className="flex items-center gap-2">
                                 <input
                                         type="checkbox"
