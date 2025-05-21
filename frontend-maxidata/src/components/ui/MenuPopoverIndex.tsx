@@ -1,4 +1,4 @@
-
+import { Link } from 'react-router-dom';
 import {
   Popover,
   PopoverButton,
@@ -8,15 +8,15 @@ import { ChevronDown } from 'lucide-react'
 import {
   Moon,
   Sun,
-  ChartPie,
-  MousePointerClick ,
+  House,
+  UserCheck,
 
 } from 'lucide-react'
 import { useTheme } from '../../hooks/globalStyle/theme/useTheme'
 
 const solutions = [
-  { name: 'Analytics', description: 'Analise seus profissionais', href: '#', icon: ChartPie },
-  { name: 'Engajamento', description: 'Atualize de forma rápida', href: '#', icon: MousePointerClick  }
+  { name: 'Analytics', description: 'Analise seus profissionais', href: '/Home', icon: House },
+  { name: 'Engajamento', description: 'Atualize de forma rápida', href: '/Login', icon: UserCheck }
 ]
 
 export function MenuPopover() {
@@ -35,7 +35,8 @@ export function MenuPopover() {
         <div className="w-full rounded-3xl bg-white dark:bg-gray-900 text-sm shadow-lg ring-1 ring-gray-300 dark:ring-gray-700">
           <div className="p-4 space-y-2">
             {solutions.map((item) => (
-              <div
+              <Link
+                to={item.href}
                 key={item.name}
                 className="group flex gap-4 items-start rounded-lg p-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
               >
@@ -43,36 +44,35 @@ export function MenuPopover() {
                   <item.icon className="size-5 text-gray-700 dark:text-gray-300" />
                 </div>
                 <div>
-                  <a href={item.href} className="font-semibold text-gray-900 dark:text-white block">
+                  <span className="font-semibold text-gray-900 dark:text-white block">
                     {item.name}
-                  </a>
+                  </span>
                   <p className="text-gray-600 dark:text-gray-400 text-xs">{item.description}</p>
                 </div>
-              </div>
+              </Link>
             ))}
 
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-3">
-              <button
-                onClick={toggleTheme}
-                className="flex items-center gap-2 w-full text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded transition"
-              >
-                {theme === 'dark' ? (
-                  <>
-                    <Sun className="size-4" />
-                    Modo Claro
-                  </>
-                ) : (
-                  <>
-                    <Moon className="size-4" />
-                    Modo Escuro
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-3">
+                  <button
+                    onClick={toggleTheme}
+                    className="flex items-center gap-2 w-full text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 px-3 py-2 rounded transition"
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <Sun className="size-4" />
+                        Modo Claro
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="size-4" />
+                        Modo Escuro
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
         </div>
       </PopoverPanel>
     </Popover>
   )
 }
- 
