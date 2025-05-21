@@ -15,8 +15,8 @@ import {
 import { useTheme } from '../../hooks/globalStyle/theme/useTheme'
 
 const solutions = [
-  { name: 'Analytics', description: 'Analise seus profissionais', href: '/Home', icon: House },
-  { name: 'Engajamento', description: 'Atualize de forma rápida', href: '/Login', icon: UserCheck }
+  { name: 'Home', description: 'Analise seus profissionais', href: '/Home', icon: House },
+  { name: 'Login', description: 'Sing-up or Sing-in', href: '/Login', icon: UserCheck }
 ]
 
 export function MenuPopover() {
