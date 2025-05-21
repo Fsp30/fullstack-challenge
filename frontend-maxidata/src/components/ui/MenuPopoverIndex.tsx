@@ -4,7 +4,7 @@ import {
   PopoverButton,
   PopoverPanel
 } from '@headlessui/react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Menu } from 'lucide-react'
 import {
   Moon,
   Sun,
@@ -25,7 +25,7 @@ export function MenuPopover() {
   return (
     <Popover className="relative">
       <PopoverButton className="inline-flex items-center gap-1 text-sm font-semibold text-gray-900 dark:text-white">
-        <span>Menu</span>
+        <Menu/>
         <ChevronDown className="size-5" />
       </PopoverButton>
 
