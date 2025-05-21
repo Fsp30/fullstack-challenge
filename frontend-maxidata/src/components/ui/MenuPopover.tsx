@@ -1,21 +1,22 @@
-import { Link } from 'react-router-dom';
+
 import {
   Popover,
   PopoverButton,
   PopoverPanel
-} from '@headlessui/react';
-import { ChevronDown } from 'lucide-react';
+} from '@headlessui/react'
+import { ChevronDown } from 'lucide-react'
 import {
   Moon,
   Sun,
-  UserSearch ,
-  ClipboardList ,
-} from 'lucide-react';
-import { useTheme } from '../../hooks/globalStyle/theme/useTheme';
+  ChartPie,
+  MousePointerClick ,
+
+} from 'lucide-react'
+import { useTheme } from '../../hooks/globalStyle/theme/useTheme'
 
 const solutions = [
-  { name: 'Professionais', description: 'Analise seus profissionais', href: '/analytics', icon: UserSearch  },
-  { name: 'Tipos de Profissionais', description: 'Atualize de forma rápida', href: '/engagement', icon: ClipboardList  }
+  { name: 'Analytics', description: 'Analise seus profissionais', href: '#', icon: ChartPie },
+  { name: 'Engajamento', description: 'Atualize de forma rápida', href: '#', icon: MousePointerClick  }
 ]
 
 export function MenuPopover() {
@@ -34,8 +35,7 @@ export function MenuPopover() {
         <div className="w-full rounded-3xl bg-white dark:bg-gray-900 text-sm shadow-lg ring-1 ring-gray-300 dark:ring-gray-700">
           <div className="p-4 space-y-2">
             {solutions.map((item) => (
-              <Link
-                to={item.href}
+              <div
                 key={item.name}
                 className="group flex gap-4 items-start rounded-lg p-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
               >
@@ -43,12 +43,12 @@ export function MenuPopover() {
                   <item.icon className="size-5 text-gray-700 dark:text-gray-300" />
                 </div>
                 <div>
-                  <span className="font-semibold text-gray-900 dark:text-white block">
+                  <a href={item.href} className="font-semibold text-gray-900 dark:text-white block">
                     {item.name}
-                  </span>
+                  </a>
                   <p className="text-gray-600 dark:text-gray-400 text-xs">{item.description}</p>
                 </div>
-              </Link>
+              </div>
             ))}
 
             <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-3">
@@ -75,3 +75,4 @@ export function MenuPopover() {
     </Popover>
   )
 }
+ 
