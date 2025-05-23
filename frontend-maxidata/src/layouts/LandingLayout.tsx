@@ -7,14 +7,16 @@ interface LandingLayoutProps {
 
 export function LandingLayout({ children }: LandingLayoutProps) {
     return (
-        <div className="min-h-screen bg-background text-primary">
-            <header className="p-6 flex justify-between items-center border-b">
+        <div className="h-screen overflow-hidden bg-background text-primary flex flex-col">
+            <header className="p-6 flex justify-between items-center shrink-0">
                 <h1 className="text-xl font-bold">Professional Manager</h1>
                 <div>  
-                    <MenuPopover/>
+                    <MenuPopover />
                 </div>
             </header>
-            <main className="p-6">{children}</main>
+            <main className="flex-1 flex items-center justify-center overflow-hidden">
+                {children}
+            </main>
         </div>
     )
 }
