@@ -34,14 +34,14 @@ export function Home() {
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1.2 }}
-                        className="w-full max-w-sm border-2 border-dotted border-gray-300 dark:border-gray-600 rounded-xl p-6 shadow-sm  bg-zinc-900" 
+                        className="w-full max-w-sm border-2 border-solid border-gray-100 dark:border-gray-600 rounded-xl p-6 shadow-sm  bg-zinc-50 dark:bg-bgdark" 
                     >
                         <div className="space-y-4">
                             {solutions.map((item) => (
                                 <Link
                                     to={item.href}
                                     key={item.name}
-                                    className="group flex gap-4 items-start rounded-lg p-3 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+                                    className="group flex gap-4 items-start rounded-lg p-3 shadow-md  hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                                 >
                                     <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
                                         <item.icon className="size-5 text-gray-700 dark:text-gray-300" />
