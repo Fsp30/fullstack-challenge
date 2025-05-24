@@ -7,7 +7,7 @@ interface LandingLayoutProps {
 
 export function LandingLayout({ children }: LandingLayoutProps) {
     return (
-        <div className="h-screen overflow-hidden bg-background text-primary flex flex-col">
+        <div className="h-screen overflow-hidden bg-background text-primary dark:bg-bgdark dark:text-textdark flex flex-col transition-colors duration-500">
             <header className="p-6 flex justify-between items-center shrink-0">
                 <h1 className="text-xl font-bold">Professional Manager</h1>
                 <div>  
