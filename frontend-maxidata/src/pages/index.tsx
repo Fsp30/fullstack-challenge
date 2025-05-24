@@ -8,7 +8,7 @@ const solutions = [
     { name: 'Login', description: 'Sign-up ou Sign-in', href: '/Login', icon: UserCheck }
 ]
 
-export function Home() {
+export function LandingPage() {
     return (
         <LandingLayout>
             <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen w-full px-8 py-6 gap-8">
