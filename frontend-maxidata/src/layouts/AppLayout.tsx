@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { ThemeToggle } from "../components/shared/ThemeToggle"
+import PrincipalMenu from "../components/ui/PrincipalMenu"
 
 interface AppLayoutProps {
   children: ReactNode
@@ -16,12 +17,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-52 p-6 bg-zinc-100 dark:bg-bgdark shrink-0 overflow-y-auto border-r border-zinc-200 dark:border-zinc-800">
-          <div>
-                <p>menu dropdown</p>
-          </div>
-          <div>
-                <p>menu dropdown</p>
-          </div>
+          <PrincipalMenu/>
         </aside>
 
         <main className="flex-1 overflow-y-auto p-6 bg-white dark:bg-bgdark shadow-inner">
