@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useFetchOneProfessional } from "../../../hooks/Professionals/useFetchOneProfessionals";
-
+import { ClipboardList } from "lucide-react";
 interface Props {
         id: number
 }
@@ -10,8 +10,11 @@ export function FetchOneProfessionalButton({ id }: Props) {
         const { data, isLoading, isError } = useFetchOneProfessional({ id })
         return (
                 <div>
-                        <button onClick={() => setVisible(!visible)} className="text-blue-600 underline">
-                                Ver detalhes
+                        <button
+                                onClick={() => setVisible(!visible)}
+                                className="hover:dark:bg-zinc-600 hover:bg-whiteCard w-8 h-8 items-center justify-center flex rounded-lg transition-transform duration-200 hover:scale-105"
+                        >
+                                <ClipboardList />
                         </button>
 
                         {visible && (
