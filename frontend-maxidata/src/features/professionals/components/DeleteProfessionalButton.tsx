@@ -1,3 +1,4 @@
+import { Trash2 } from "lucide-react";
 import { useDeleteProfessionals } from "../../../hooks/Professionals/useDeleteProfessionals";
 
 interface Props {
@@ -20,8 +21,9 @@ export function DeleteProfessionalButton({ id, onDeleted }: Props) {
 
         return (
                 <div>
-                        <button onClick={handleDelete} disabled={isPending} className="text-red-600 underline">
-                                {isPending ? "Excluindo..." : "Excluir"}
+                        <button onClick={handleDelete} disabled={isPending} className="hover:dark:bg-zinc-600 hover:bg-whiteCard w-8 h-8 items-center justify-center flex rounded-lg transition-transform duration-200 hover:scale-105">
+                                
+                                {isPending ? "Excluindo..." : <Trash2/>}
                         </button>
 
                         {isSuccess && <p className="text-green-600 text-sm">Excluído com sucesso!</p>}
