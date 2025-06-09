@@ -92,7 +92,7 @@ export function ProfessionalsList() {
               key={professional.id}
               className="p-4 bg-white dark:bg-zinc-800 rounded shadow"
             >
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-center">
                 <div>
                   <h3 className="text-lg font-medium">{professional.name}</h3>
                   <p className="text-sm text-zinc-600 dark:text-zinc-300">
@@ -105,7 +105,7 @@ export function ProfessionalsList() {
                     ID: {professional.id}
                   </p>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex space-x-2 items-center justify-center gap-2 ">
                   <FetchOneProfessionalButton id={professional.id} />
                   <DeleteProfessionalButton
                     id={professional.id}
