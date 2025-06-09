@@ -26,8 +26,15 @@ export const ProfessionalService = {
   },
 
   findOne: async (id: number): Promise<ProfessionalResponse> => {
-    const response = await api.get(`/professional/${id}`);
-    return response.data;
+    if (import.meta.env.DEV) {
+      const professional = fakeProfessionals.find((p) => p.id === id)
+      if (!professional) {
+        throw new Error("Profissional não encontrado")
+      }
+      return professional
+    }
+    const response = await api.get(`/professional/${id}`)
+    return response.data
   },
 
   findByType: async (
