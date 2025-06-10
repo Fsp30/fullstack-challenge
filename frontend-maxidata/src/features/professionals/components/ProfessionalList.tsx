@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useProfessionals } from "../../../hooks/Professionals/useProfessionals";
-import { DeleteProfessionalButton } from "./DeleteProfessionalButton";
-import { FetchOneProfessionalButton } from "./FetchOneProfessionalButton";
+import { ButtonsAction } from "./ProfessionalsButtonActions";
 
 export function ProfessionalsList() {
   const [page, setPage] = useState(1)
@@ -9,13 +8,7 @@ export function ProfessionalsList() {
   const { data, total, isLoading, isError, error, refetch } = useProfessionals(page, limit)
   const totalPages = Math.ceil(total / limit)
   
-  const handleDeleteSuccess = () => {
-    if (data.length === 1 && page > 1) {
-      setPage(page - 1)
-    } else {
-      refetch()
-    }
-  }
+
   if (isLoading) {
     return (
       <div role="status" className="flex justify-center">
@@ -106,11 +99,7 @@ export function ProfessionalsList() {
                   </p>
                 </div>
                 <div className="flex space-x-2 items-center justify-center gap-2 ">
-                  <FetchOneProfessionalButton id={professional.id} />
-                  <DeleteProfessionalButton
-                    id={professional.id}
-                    onDeleted={handleDeleteSuccess}
-                  />
+                  <ButtonsAction id={professional.id}/>
                 </div>
               </div>
             </li>
