@@ -68,12 +68,7 @@ export function ProfessionalsList() {
     <div className="space-y-4">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold">Lista de Profissionais</h2>
-        <button
-          onClick={() => refetch()}
-          className="text-sm bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Recarregar
-        </button>
+        
       </div>
 
       {data.length === 0 ? (
@@ -108,7 +103,7 @@ export function ProfessionalsList() {
       )}
 
       {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-4 mt-6">
+        <div className="flex justify-center items-center gap-4 mt-8">
           <button
             disabled={page === 1}
             onClick={() => setPage((prev) => prev - 1)}
@@ -126,6 +121,12 @@ export function ProfessionalsList() {
           >
             Próxima
           </button>
+      <button
+          onClick={() => refetch()}
+          className="text-sm bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Recarregar
+        </button>
         </div>
       )}
     </div>
