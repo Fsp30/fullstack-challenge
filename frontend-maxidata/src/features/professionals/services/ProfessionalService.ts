@@ -42,13 +42,52 @@ export const ProfessionalService = {
     page: number = 1,
     limit: number = 10
   ): Promise<{ data: ProfessionalListResponse; total: number }> => {
+    if (import.meta.env.DEV) {
+      const filtered = fakeProfessionals.filter(
+        (p) => p.typeOfProfessionalId === typeId
+      )
+      const start = (page - 1) * limit;
+      const end = start + limit;
+      const data = filtered.slice(start, end);
+      return {
+        data,
+        total: filtered.length,
+      }
+    }
+
     const response = await api.get(
       `/profeessional/filter/by-type/${typeId}&page=${page}&limit=${limit}`
-    );
-    return response.data;
+    )
+    return response.data
   },
 
   create: async (data: CreateProfessionalDto): Promise<void> => {
+    if (import.meta.env.DEV) {
+      const now = new Date().toISOString()
+
+      const newProfessional: ProfessionalResponse = {
+        id: fakeProfessionals.length + 1,
+        createdAt: now,
+        updatedAt: now,
+        situation: true,
+        name: data.name,
+        email: data.email,
+        telephone: data.telephone,
+        typeOfProfessionalId: data.typeOfProfessionalId,
+
+        typeProfessional: {
+          id: data.typeOfProfessionalId,
+          describe: "Mock Tipo Profissional",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          situation: true,
+        },
+      }
+
+      fakeProfessionals.push(newProfessional);
+      return
+    }
+
     await api.post("/professional", data);
   },
 
@@ -56,11 +95,32 @@ export const ProfessionalService = {
     data: UpdateProfessionalDto,
     id: number
   ): Promise<ProfessionalResponse> => {
+    if (import.meta.env.DEV) {
+      const index = fakeProfessionals.findIndex((p) => p.id === id);
+      if (index === -1) {
+        throw new Error("Profissional não encontrado")
+      }
+      const updatedProfessional = {
+        ...fakeProfessionals[index],
+        ...data,
+      }
+      fakeProfessionals[index] = updatedProfessional
+      return updatedProfessional
+    }
+
     const response = await api.put(`/professional/${id}`, data);
     return response.data;
   },
 
   remove: async (id: number): Promise<void> => {
-    await api.delete(`/professional/${id}`);
+    if (import.meta.env.DEV) {
+      const index = fakeProfessionals.findIndex((p) => p.id === id)
+      if (index !== -1) {
+        fakeProfessionals.splice(index, 1)
+      }
+      return
+    }
+
+    await api.delete(`/professional/${id}`)
   },
-};
+}
