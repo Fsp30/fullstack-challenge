@@ -11,7 +11,7 @@ import {
 
 const professionalLinks = [
         {
-                to: "/professionals",
+                to: "/professionals/findAll",
                 label: "Ver todos",
                 description: "Visualize todos os profissionais cadastrados.",
                 icon: ClipboardList,
