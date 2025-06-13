@@ -3,6 +3,7 @@ import { ProfessionalsPage } from '../pages/ProfessionalsPages'
 import { ProfessionalList } from '../pages/ProfessionalsPages/ProfessionalList'
 import { UpdateSelectorProfessionals } from '../pages/ProfessionalsPages/UpdateSelector'
 import { ProfessionalFormUpdate } from '../pages/ProfessionalsPages/UpdateProfessionalsForm'
+import { DeleteSelectorProfessional } from '../pages/ProfessionalsPages/DeleteProfessionalSelector'
 
 export function ProfessionalsRoutes(){
         return( <>
@@ -10,6 +11,7 @@ export function ProfessionalsRoutes(){
                 <Route path="/professionals/findAll" element={<ProfessionalList/>}/>
                 <Route path="/professionals/update" element={<UpdateSelectorProfessionals/>}/>
                 <Route path="/professionals/update/:id" element={<ProfessionalFormUpdate/>}/>
+                <Route path="/professionals/delete" element={<DeleteSelectorProfessional/>}/>
                 </>
         )
 }
