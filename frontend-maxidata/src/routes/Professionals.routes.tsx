@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { ProfessionalsPage } from '../pages/ProfessionalsPages'
 import { ProfessionalList } from '../pages/ProfessionalsPages/ProfessionalList'
 import { UpdateSelectorProfessionals } from '../pages/ProfessionalsPages/UpdateSelector'
