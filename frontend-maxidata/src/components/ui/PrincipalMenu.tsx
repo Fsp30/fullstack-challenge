@@ -4,7 +4,7 @@ import { User, Users, ArrowDownWideNarrow } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
 const professionalLinks = [
-  { to: "/professionals", label: "Ver todos" },
+  { to: "/professionals/findAll", label: "Ver todos" },
   { to: "/professionals/create", label: "Criar novo" },
   { to: "/professionals/fetchBytype", label: "Analisar por tipo" },
   { to: "/professionals/fetchOne", label: "Analisar um" },
@@ -13,7 +13,7 @@ const professionalLinks = [
 ]
 
 const typeLinks = [
-  { to: "/Type-professionals", label: "Ver todos" },
+  { to: "/Type-professionals/findAll", label: "Ver todos" },
   { to: "/Type-professionals/create", label: "Criar novo" },
   { to: "/Type-professionals/fetchOne", label: "Analisar um" },
   { to: "/Type-professionals/update", label: "Atualizar" },
