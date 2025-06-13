@@ -38,10 +38,10 @@ export function UpdateProfessionalForm() {
 
   if (isLoading) {
     return (
-      <div role="status" className="flex justify-center">
+      <div role="status" className="flex justify-center items-center">
         <svg
           aria-hidden="true"
-          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-amber-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -78,79 +78,88 @@ export function UpdateProfessionalForm() {
   }
 
   return (
-    <div className="space-y-4 max-w-md mx-auto p-4 bg-white dark:bg-zinc-800 rounded shadow">
-      <h2 className="text-2xl font-semibold mb-4">Atualizar Profissional</h2>
-      
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <div className="max-w-auto mx-auto mt-10 p-8 bg-whiteCard dark:bg-zinc-700 rounded-2xl shadow-md space-y-6 items-center justify-center">
+      <h2 className="text-3xl font-bold text-center text-zinc-900 dark:text-white">
+        Atualizar Profissional
+      </h2>
+
+      <form
+        key={existingData?.id} 
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-5"
+      >
         <div>
-          <label className="block font-medium mb-1 text-zinc-700 dark:text-zinc-300">Nome do Profissional</label>
+          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            Nome do Profissional
+          </label>
           <input
             type="text"
             {...register("name")}
-            className="w-full border border-zinc-300 dark:border-zinc-600 rounded px-3 py-2 bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            placeholder="Digite o nome completo"
           />
           {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+            <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
           )}
         </div>
-        
         <div>
-          <label className="block font-medium mb-1 text-zinc-700 dark:text-zinc-300">Email do Profissional</label>
+          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            Email do Profissional
+          </label>
           <input
-            type="text"
+            type="email"
             {...register("email")}
-            className="w-full border border-zinc-300 dark:border-zinc-600 rounded px-3 py-2 bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            placeholder="Digite o e-mail"
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
           )}
         </div>
-        
         <div>
-          <label className="block font-medium mb-1 text-zinc-700 dark:text-zinc-300">Telefone do Profissional</label>
+          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            Telefone do Profissional
+          </label>
           <input
-            type="text"
+            type="tel"
             {...register("telephone")}
-            className="w-full border border-zinc-300 dark:border-zinc-600 rounded px-3 py-2 bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200"
+            className="w-full px-4 py-2 border border-zinc-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            placeholder="(xx) xxxxx-xxxx"
           />
           {errors.telephone && (
-            <p className="text-red-500 text-sm mt-1">{errors.telephone.message}</p>
+            <p className="text-sm text-red-500 mt-1">{errors.telephone.message}</p>
           )}
         </div>
-        
         <TypeProfessionalSelect
           register={register("typeOfProfessionalId", { valueAsNumber: true })}
           error={errors.typeOfProfessionalId?.message}
         />
-        
-        <div className="flex items-center gap-2">
+        <div className="flex items-center space-x-2">
           <input
             type="checkbox"
-            {...register("situation")}
             id="situation"
-            className="w-4 h-4 text-blue-600 bg-zinc-100 border-zinc-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
+            {...register("situation")}
+            className="w-5 h-5 text-amber-600 border-zinc-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-zinc-800 focus:ring-2 dark:bg-zinc-700 dark:border-zinc-600"
           />
           <label htmlFor="situation" className="text-sm text-zinc-700 dark:text-zinc-300">
             Está ativo?
           </label>
         </div>
-
         <button
           type="submit"
           disabled={isPending}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded disabled:opacity-50"
+          className="w-full py-3 px-6 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold transition-all duration-200 disabled:opacity-50"
         >
           {isPending ? "Atualizando..." : "Atualizar"}
         </button>
-
         {isSuccess && (
-          <p className="text-green-600 mt-2 text-center">
+          <p className="text-green-600 text-center text-sm font-medium">
             Profissional atualizado com sucesso!
           </p>
         )}
-        
+
         {isError && (
-          <p className="text-red-600 mt-2 text-center">
+          <p className="text-red-600 text-center text-sm font-medium">
             Erro: {(error as Error).message}
           </p>
         )}
