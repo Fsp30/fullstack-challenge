@@ -8,7 +8,7 @@ export function Home() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 group dark:text-primary h-full">
         {/* Card 1 */}
         <Link
-          to="/Professional"
+          to="/professionals"
           className="bg-whiteCard dark:bg-zinc-800 p-6 rounded-xl shadow-md transition-all duration-300
             group-hover:blur-sm group-hover:opacity-40 hover:!blur-none hover:!opacity-100 hover:scale-105"
         >
