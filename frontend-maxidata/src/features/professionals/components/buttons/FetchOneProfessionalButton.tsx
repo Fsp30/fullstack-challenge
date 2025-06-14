@@ -2,19 +2,28 @@ import { useState } from "react";
 import { useFetchOneProfessional } from "../../../../hooks/Professionals/useFetchOneProfessionals";
 import { ClipboardList, X } from "lucide-react";
 import { DeleteProfessionalButton } from "./DeleteProfessionalButton";
+import { ProfessionalResponse } from "../../types";
 
 interface Props {
   id: number;
+  onSuccess?: (data:ProfessionalResponse) => void;
 }
 
-export function FetchOneProfessionalButton({ id }: Props) {
+export function FetchOneProfessionalButton({ id, onSuccess }: Props) {
   const [visible, setVisible] = useState(false)
   const { data, isLoading, isError } = useFetchOneProfessional({ id })
+
+  const handleClick = () => {
+    setVisible(true)
+    if (data && onSuccess) {
+      onSuccess(data)
+    }
+  }
 
   return (
     <div>
       <button
-        onClick={() => setVisible(true)}
+        onClick={handleClick}
         className="hover:dark:bg-zinc-600 hover:bg-whiteCard w-8 h-8 items-center justify-center flex rounded-lg transition-transform duration-200 hover:scale-105"
       >
         <ClipboardList />
@@ -58,7 +67,7 @@ export function FetchOneProfessionalButton({ id }: Props) {
           </div>
         </div>
       )}
-
     </div>
   )
 }
+
